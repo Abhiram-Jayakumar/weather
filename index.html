@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://kit.fontawesome.com/675ad92f7a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div>
+    <div class="card">
+      <h2>Weather Geo</h2>
+      <div class="search">
+        <input type="text" id="searchdist" class="search_bar" placeholder="Search">
+        <button onclick="search()" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+      <section>
+        <div class="" id="result"></div>
+      </section>
+    </div>
+  </div>
+
+</body>
+<script>
+  function search() {
+    dist = searchdist.value
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${dist}&appid=5b4bee0ba241d092159faf007e166080`)
+      .then(res => res.json())
+      .then(data => displaydata(data))
+
+  }
+  function displaydata(distDetails) {
+    cname = searchdist.value
+    temperature = distDetails.main.temp
+    weather = distDetails.weather[0].description
+    Main = distDetails.weather[0].main
+    wind = distDetails.wind.speed
+    lattitude = distDetails.coord.lat
+    longitude = distDetails.coord.lon
+
+
+
+    htmldata = `  <p><i class="fa-solid fa-city"></i>   city name: <span id="cityname">${cname}</span></p>
+      <p><i class="fa-solid fa-temperature-high"></i>   Temperature: <span id="temp">${temperature}</span></p>
+      <p><i class="fa-solid fa-sun"></i>                weather type: <span id="weather">${weather}</span></p>
+      <p><i class="fa-solid fa-cloud"></i>              Main: <span id="main">${Main}</span></p>
+      <p><i class="fa-solid fa-wind"></i>               wind speed: <span id="wind">${wind}</span></p>
+      <p> <i class="fa-solid fa-location-dot"></i>      lattitude: <span id="latt">${lattitude}</span></p>
+      <p><i class="fa-solid fa-location-crosshairs"></i> longitude: <span id="long">${longitude}</span></p>`
+
+
+    result.innerHTML = htmldata
+
+    document.body.style.backgroundImage =
+      "url('https://source.unsplash.com/1600x900/?" + cname + "')";
+
+  }
+
+</script>
+
+</html>
