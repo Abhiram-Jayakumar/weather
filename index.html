@@ -14,7 +14,7 @@
     <div class="card">
       <h2>Weather Geo</h2>
       <div class="search">
-        <input type="text" id="searchdist" class="search_bar" placeholder="Search">
+        <input type="text" id="searchdist" class="search_bar"style="text-transform:uppercase" placeholder="Search">
         <button onclick="search()" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
       </div>
       <section>
@@ -22,9 +22,9 @@
       </section>
     </div>
   </div>
-
 </body>
 <script>
+  
   function search() {
     dist = searchdist.value
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${dist}&appid=5b4bee0ba241d092159faf007e166080`)
@@ -40,16 +40,25 @@
     wind = distDetails.wind.speed
     lattitude = distDetails.coord.lat
     longitude = distDetails.coord.lon
+    Sunrise = distDetails.sys.sunrise
+    Sunset = distDetails.sys.sunset
+    Icon=distDetails.weather[0].icon
 
 
 
-    htmldata = `  <p><i class="fa-solid fa-city"></i>   city name: <span id="cityname">${cname}</span></p>
+    htmldata = `  <p><i class="fa-solid fa-city"></i>   city name: <span id="cityname" style="text-transform:uppercase">${cname}</span></p>
       <p><i class="fa-solid fa-temperature-high"></i>   Temperature: <span id="temp">${temperature}</span></p>
       <p><i class="fa-solid fa-sun"></i>                weather type: <span id="weather">${weather}</span></p>
       <p><i class="fa-solid fa-cloud"></i>              Main: <span id="main">${Main}</span></p>
       <p><i class="fa-solid fa-wind"></i>               wind speed: <span id="wind">${wind}</span></p>
       <p> <i class="fa-solid fa-location-dot"></i>      lattitude: <span id="latt">${lattitude}</span></p>
-      <p><i class="fa-solid fa-location-crosshairs"></i> longitude: <span id="long">${longitude}</span></p>`
+      <p><i class="fa-solid fa-location-crosshairs"></i> longitude: <span id="long">${longitude}</span></p>
+      <hr>
+      <p><img src="./images/icon.png" alt="">           sunrise: <span id="sunrise">${Sunrise}</span></p>
+      <p><img src="./images/set.png" alt="">            sunset: <span id="sunrise">${Sunset}</span></p>
+      <p> <img src="./images/partly_cloudy.png" alt="">icon: <span id="icon">${Icon}  <a href="https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2">Click here for more details</a>
+</span></p>`
+      
 
 
     result.innerHTML = htmldata
@@ -58,7 +67,7 @@
       "url('https://source.unsplash.com/1600x900/?" + cname + "')";
 
   }
-
+console.log(testNum(-5));
 </script>
 
 </html>
